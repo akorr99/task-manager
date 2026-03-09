@@ -463,16 +463,436 @@
   .import-option:hover { border-color: var(--accent); background: var(--accent-dim); }
   .import-option input[type="radio"] { accent-color: var(--accent); }
 
-  /* Responsive */
+  /* ===== MOBILE RESPONSIVE ===== */
   @media (max-width: 768px) {
-    .header { flex-direction: column; gap: 12px; }
-    .filters { flex-direction: column; align-items: flex-start; }
-    .cal-cell { min-height: 80px; }
-    .cal-task { font-size: 10px; }
-    .summary-bar { flex-wrap: wrap; gap: 10px; }
-    .search-box input { width: 140px; }
-    .search-box input:focus { width: 160px; }
-    .stats-grid { grid-template-columns: 1fr; }
+    /* Header */
+    .header {
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px;
+      align-items: stretch;
+    }
+    .header h1 {
+      font-size: 20px;
+      text-align: center;
+    }
+    .search-box {
+      order: 2;
+      width: 100%;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 12px 12px 12px 36px;
+      font-size: 16px; /* prevent iOS zoom */
+    }
+    .search-box input:focus {
+      width: 100%;
+    }
+    .view-toggle {
+      order: 3;
+      width: 100%;
+    }
+    .view-toggle button {
+      flex: 1;
+      padding: 12px;
+      font-size: 14px;
+    }
+    .header-actions {
+      order: 4;
+      width: 100%;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .header-actions .btn-backup,
+    .header-actions .btn-theme,
+    .header-actions .btn-bell {
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+    .header-actions .btn-add {
+      flex: 1;
+      justify-content: center;
+      padding: 12px;
+      font-size: 14px;
+    }
+
+    /* Summary bar - horizontal scroll */
+    .summary-bar {
+      padding: 10px 16px;
+      gap: 16px;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+    .summary-item {
+      white-space: nowrap;
+      font-size: 12px;
+    }
+
+    /* Filters - collapsible style */
+    .filters {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 12px 16px;
+      gap: 10px;
+    }
+    .filter-group {
+      width: 100%;
+      justify-content: space-between;
+    }
+    .filter-group label {
+      min-width: 70px;
+    }
+    .filter-group select {
+      flex: 1;
+      padding: 10px 12px;
+      font-size: 16px; /* prevent iOS zoom */
+    }
+    .archive-toggle {
+      padding: 8px 0;
+      font-size: 14px;
+    }
+
+    /* Main content */
+    .main {
+      padding: 12px;
+    }
+
+    /* Table View → Card View on Mobile */
+    .table-view table {
+      display: block;
+    }
+    .table-view thead {
+      display: none;
+    }
+    .table-view tbody {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .table-view tr {
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      gap: 8px;
+      position: relative;
+    }
+    .table-view tr:hover td {
+      background: transparent;
+    }
+    .table-view td {
+      display: block;
+      padding: 0;
+      border: none !important;
+      font-size: 14px;
+    }
+    /* Hide drag handle on mobile */
+    .table-view td:first-child {
+      display: none;
+    }
+    /* Task name - prominent */
+    .table-view td:nth-child(2) {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      padding-right: 40px; /* space for action buttons */
+    }
+    /* Student name */
+    .table-view td:nth-child(3)::before {
+      content: '👤 ';
+    }
+    /* Category & Status & Priority on same row */
+    .table-view td:nth-child(4),
+    .table-view td:nth-child(5),
+    .table-view td:nth-child(6) {
+      display: inline-block;
+      margin-right: 6px;
+    }
+    /* Due date */
+    .table-view td:nth-child(7) {
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+    .table-view td:nth-child(7)::before {
+      content: '📅 ';
+    }
+    /* Action buttons - absolute position */
+    .table-view td:last-child {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+    }
+    .action-btns {
+      gap: 2px;
+    }
+    .action-btns button {
+      padding: 8px 10px;
+      font-size: 20px;
+    }
+    /* Done row styling */
+    .table-view tr.row-done {
+      opacity: 0.6;
+    }
+    .table-view tr.row-done td {
+      text-decoration: none;
+    }
+    .table-view tr.row-done td:nth-child(2) {
+      text-decoration: line-through;
+    }
+
+    /* Inline steps in card */
+    .inline-steps {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border-light);
+    }
+    .inline-steps .inline-step {
+      padding: 8px 0;
+    }
+    .inline-steps .inline-step input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+    }
+    .inline-step-add input {
+      padding: 10px;
+      font-size: 16px;
+    }
+    .inline-step-add button {
+      padding: 10px 14px;
+    }
+
+    /* Calendar View */
+    .calendar-view {
+      border-radius: 8px;
+    }
+    .cal-header {
+      padding: 12px 14px;
+    }
+    .cal-header h2 {
+      font-size: 16px;
+    }
+    .cal-nav button {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+    .cal-day-header {
+      padding: 8px 4px;
+      font-size: 11px;
+    }
+    .cal-cell {
+      min-height: 60px;
+      padding: 4px;
+    }
+    .cal-date {
+      font-size: 11px;
+    }
+    .cal-task {
+      font-size: 9px;
+      padding: 2px 4px;
+    }
+    .cal-more {
+      font-size: 9px;
+    }
+
+    /* Calendar popover */
+    .cal-popover {
+      left: 10px !important;
+      right: 10px !important;
+      max-width: none;
+      width: auto;
+    }
+
+    /* Modal - Full screen on mobile */
+    .modal-overlay {
+      align-items: flex-end;
+    }
+    .modal {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 20px 20px 0 0;
+      max-height: 90vh;
+      padding: 20px 16px 30px;
+    }
+    .modal h2 {
+      font-size: 18px;
+      text-align: center;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 14px;
+      font-size: 16px; /* prevent iOS zoom */
+    }
+    .form-actions {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .form-actions button {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+    }
+    .btn-delete {
+      order: 3;
+    }
+
+    /* Steps section in modal */
+    .step-item {
+      padding: 10px 0;
+    }
+    .step-item input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+    }
+    .step-add input {
+      padding: 12px;
+      font-size: 16px;
+    }
+    .step-add button {
+      padding: 12px 16px;
+    }
+
+    /* Tags input */
+    .tags-input {
+      padding: 10px;
+      min-height: 50px;
+    }
+    .tags-input input {
+      font-size: 16px;
+      padding: 6px 0;
+    }
+    .tag {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    /* Stats modal */
+    .stats-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .stat-card {
+      padding: 14px;
+    }
+    .stat-card .stat-value {
+      font-size: 24px;
+    }
+    .donut-chart {
+      width: 120px;
+      height: 120px;
+    }
+    .donut-center .donut-value {
+      font-size: 26px;
+    }
+    .bar-chart {
+      height: 100px;
+    }
+    .bar-chart-bar::after {
+      font-size: 10px;
+      top: -18px;
+    }
+    .bar-chart-label {
+      font-size: 9px;
+    }
+    .pie-chart {
+      width: 100px;
+      height: 100px;
+    }
+    .pie-legend {
+      gap: 6px;
+    }
+    .pie-legend-item {
+      font-size: 10px;
+    }
+
+    /* Toast */
+    .toast-container {
+      top: auto;
+      bottom: 20px;
+      left: 16px;
+      right: 16px;
+    }
+    .toast {
+      min-width: auto;
+      max-width: none;
+    }
+
+    /* Shortcuts help - hide on mobile */
+    .shortcuts-help {
+      display: none !important;
+    }
+
+    /* Notification bars */
+    .perm-bar,
+    .notif-banner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .perm-bar button,
+    .notif-banner .notif-btn {
+      width: 100%;
+      padding: 12px;
+    }
+    .notif-banner .notif-actions {
+      flex-direction: column;
+    }
+
+    /* Priority & Category badges */
+    .priority-badge,
+    .badge,
+    .cat-badge {
+      font-size: 10px;
+      padding: 4px 8px;
+    }
+
+    /* Import modal options */
+    .import-option {
+      padding: 14px;
+    }
+
+    /* Empty state */
+    .empty-state {
+      padding: 40px 20px;
+    }
+    .empty-state .icon {
+      font-size: 40px;
+    }
+    .empty-state p {
+      font-size: 14px;
+    }
+  }
+
+  /* Extra small screens (phones in portrait) */
+  @media (max-width: 380px) {
+    .header h1 {
+      font-size: 18px;
+    }
+    .header-actions {
+      flex-wrap: wrap;
+    }
+    .header-actions .btn-backup,
+    .header-actions .btn-theme,
+    .header-actions .btn-bell {
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+    .cal-day-header {
+      font-size: 10px;
+      padding: 6px 2px;
+    }
+    .cal-cell {
+      min-height: 50px;
+    }
+    .summary-item {
+      font-size: 11px;
+    }
   }
 </style>
 </head>

@@ -2,7 +2,7 @@
   "name": "수업 관리 대시보드",
   "short_name": "수업관리",
   "description": "학생별 수업 및 할일을 관리하는 대시보드",
-  "start_url": "/",
+  "start_url": "/task-manager/",
   "display": "standalone",
   "background_color": "#1e2030",
   "theme_color": "#e8c47c",
